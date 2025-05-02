@@ -10,3 +10,11 @@ const buttons = document.querySelectorAll('.tab_button');
         });
     });
 
+    window.addEventListener('scroll', () => {
+        const topBar = document.querySelector('.top_bar');
+        if (window.scrollY > 10) {
+            topBar.classList.add('scrolled');
+        } else {
+            topBar.classList.remove('scrolled');
+        }
+    });
