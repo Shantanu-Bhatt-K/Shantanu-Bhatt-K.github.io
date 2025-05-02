@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=3d,construction,home,stadia_controller" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=3d,construction,home,menu,stadia_controller" />
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shantanu Bhatt</title>
 </head> 
 <body>
-    <div class="top_bar">
-        <div>
-            <span class="name_header">SHANTANU BHATT</span>
-        </div>
+    <div  class= "fixed_position">
+        <button class ="float_button" onclick = "toggleMenu()"><span class="material-symbols-outlined">menu</span></button>
+    </div>
+    
+    <div class="top_bar" tabindex="0", id = "top_bar">
         <div class = "top_bar_buttons">
-            <div class="button_parent"><button class="tab_button active"><span class="material-symbols-outlined">home</span><span style="font-family: Oswald, sans-serif;">  Home</span></button></div>
-            <div class="button_parent"><button class="tab_button"><span class="material-symbols-outlined">stadia_controller</span><span style="font-family: Oswald, sans-serif;">  Projects</span></button></div>
-            <div class="button_parent"><button class="tab_button"><span class="material-symbols-outlined">3d</span><span style="font-family: Oswald, sans-serif;">  3D Models</span></button></div>
-            <div class="button_parent"><button class="tab_button"><span class="material-symbols-outlined">construction</span><span style="font-family: Oswald, sans-serif;">  Tech Prototypes</span></button></div>
+            <div class="button_parent"><button onclick="SetPage('Home')" class="tab_button active"><span class="material-symbols-outlined">home</span><span style="font-family: Oswald, sans-serif;">  Home</span></button></div>
+            <div class="button_parent"><button onclick="SetPage('Projects')" class="tab_button"><span class="material-symbols-outlined">stadia_controller</span><span style="font-family: Oswald, sans-serif;">  Projects</span></button></div>
+            <div class="button_parent"><button onclick="SetPage('Models')" class="tab_button"><span class="material-symbols-outlined">3d</span><span style="font-family: Oswald, sans-serif;">  3D Models</span></button></div>
+            <div class="button_parent"><button onclick="SetPage('TechnicalProjects')"class="tab_button"><span class="material-symbols-outlined">construction</span><span style="font-family: Oswald, sans-serif;">  Tech Prototypes</span></button></div>
         </div> 
     </div>
     <div id="HomePage">
@@ -40,8 +41,15 @@
             </div>
         </div>
     </div>
-    
-    
+    <div id="ProjectsPage" class="page">
+       <span> THIS IS PROJECT PAGE</span>
+    </div>
+    <div id="ModelsPage" class="page">
+        <span style="color: aliceblue;">THIS IS Models PAGE</span>
+    </div>
+    <div id="TechnicalProjects" class="page">
+        <span style="color: aliceblue;">THIS IS technical projects PAGE</span>
+    </div>
 </body>
 <script src="index.js"></script>
 </html>

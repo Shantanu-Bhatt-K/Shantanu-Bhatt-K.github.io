@@ -52,12 +52,12 @@ body{
     animation: slideFadeBounceIn 0.8s ease-out forwards;
     opacity: 0;
 }
-.tab_button {
+.float_button,.tab_button {
     position: relative;
     display:inline-flex;
     justify-content: center;
     align-items: center;
-    height: 90%;
+    height: 80%;
     font-size: 1.2rem;
     color: #7a7a7a;
     background-color: #373737;
@@ -107,7 +107,7 @@ body{
 .button_parent:nth-child(4) {
     animation-delay: 0.8s;
 }
-.tab_button::after {
+.float_button::after,.tab_button::after {
     position: absolute;
     z-index: -1;
     content: '';
@@ -122,15 +122,17 @@ body{
     initial-value: 0%;
 }
 
-.tab_button:hover {
+.float_button:hover,.tab_button:hover {
     color :rgb(255, 200, 47);
     --fill: 100%;
 }
-.tab_button.active {
+.float_button.active,.tab_button.active {
     background-color: rgb(255, 200, 47); /* orange background */
     color: black;
 }
-
+.fixed_position {
+  position: fixed; top:10px;left:10px; display: none;
+}
 .top_bar {
     position: fixed;
     top: 0;
@@ -156,9 +158,10 @@ body{
 .top_bar_buttons {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: 0.5rem;
   height: auto;
+  width: 100%;
+  align-items: center;
 }
 .name_header {
     font-family: 'Oswald', sans-serif;
@@ -169,7 +172,12 @@ body{
     animation-delay: 0.5s;
     opacity: 0;
 }
-
+.page {
+  background-color: #111;
+  color: white;
+  min-height: 100vh;
+  display: none;
+}
   .image_background {
     min-height: 100vh;
     background-image: url('AsteroidsBackground.gif');
@@ -215,33 +223,55 @@ body{
   }
   
   .split-right img {
-    max-width: 100%;
+    min-width: 100%;
+    min-height: 100%;
     object-fit: cover;
   }
+  .float_button{
+    aspect-ratio: 1;
+  }
   @media (max-width: 600px) {
-    .tab_button {
-      font-size: 0.9rem;
-      padding: 4px 8px;
-      gap: 0.3rem;
+    .fixed_position{
+      display:block ;
     }
-  
+    .float_button,.tab_button {
+      font-size: 0.9rem;
+      padding: 3px 8px;
+      gap: 0.3rem;
+      margin: 10px 0px;
+    }
+    .tab_button span:not(:first-child) {
+      display: none; /* hides the text, keeps only icon */
+    }
     .name_header {
       font-size: 1.2rem;
     }
   
     .top_bar {
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 1rem;
+        flex-direction: column;
+        width:fit-content;
+        height: 100%;
+        background-color: #1e1e1e;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        display: none;
       }
-    
+    .top_bar.active{
+      display: block;
+    }
+    .float_button.deactive {
+      display: none;
+    }
+    .button_parent{
+      animation: none;
+      opacity: 1;
+    }
       .top_bar_buttons {
-        flex-wrap: wrap;
+        flex-direction: column;
         justify-content: flex-start;
         gap: 0.4rem;
         flex-grow: 1;
+        width: auto;
+        height: 100%;
       }
       .split-container {
         flex-direction: column;
