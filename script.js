@@ -2,6 +2,7 @@ const loadingBar = document.getElementById("loadingBar");
 const loader = document.getElementById("loader");
 const game = document.getElementById("game");
 const loaderOverlay = document.getElementById("loader-overlay");
+document.body.classList.add("loading");
 
 setTimeout(() => {
   loadingBar.style.width = "100%";
@@ -14,6 +15,7 @@ setTimeout(() => {
   AnimateCards();
   setTimeout(() => {
     loaderOverlay.style.display = "none";
+    document.body.classList.remove("loading");
   }, 500);
 }, 2100);
 
