@@ -11,11 +11,21 @@ setTimeout(() => {
   loaderOverlay.classList.add("fade-out");
   game.style.display = "block";
   startGame();
+  AnimateCards();
   setTimeout(() => {
     loaderOverlay.style.display = "none";
   }, 500);
 }, 2100);
 
+function AnimateCards()
+{
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card, index) => {
+    setTimeout(() => {
+      card.classList.add("show");
+    }, index * 300);
+  });
+};
 function startGame() {
     const letters = {
       "A": ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
@@ -28,9 +38,18 @@ function startGame() {
       " ": ["00000", "00000", "00000", "00000", "00000", "00000", "00000"]
     };
   
-    const name = "SHANTANU BHATT";
-    const pixelSize = Math.min(10, Math.floor(window.innerWidth / 100));
+    let nameLines;
+    if (game.clientWidth < 1000) {
+      nameLines = ["SHANTANU", "BHATT"];
+    } else {
+      nameLines = ["SHANTANU BHATT"];
+    }
+    const isNarrow = game.clientWidth < 1000;
+const pixelSize = isNarrow
+  ? Math.min(8, Math.floor(game.clientWidth / 50))  // Smaller pixels for narrow layout
+  : Math.min(10, Math.floor(game.clientWidth / 100));
     const spacing =0;
+    const ballSize = 12;
     const charWidth = 5 * (pixelSize + spacing);
     const charSpacing = 1 * (pixelSize + spacing);
     const spaceWidth = 3 * (pixelSize + spacing);
@@ -71,6 +90,7 @@ const startX = (game.clientWidth - totalWidth) / 2;
     function createPaddle() {
       const paddle = document.createElement("div");
       paddle.className = "paddle";
+      paddle.style.height =  `${ballSize}px`;
       game.appendChild(paddle);
       return paddle;
     }
@@ -78,6 +98,8 @@ const startX = (game.clientWidth - totalWidth) / 2;
     function createBall() {
       const ball = document.createElement("div");
       ball.className = "ball";
+      ball.style.width = `${ballSize}px`;
+      ball.style.height = `${ballSize}px`;
       game.appendChild(ball);
       return ball;
     }
@@ -103,30 +125,45 @@ const startX = (game.clientWidth - totalWidth) / 2;
     }
   
     function generateTextPixels() {
-      let currentX = startX;
-      for (let c of name) {
-        const bitmap = letters[c] || letters[" "];
-        const isSpace = c === " ";
-        const width = isSpace ? spaceWidth : charWidth;
-  
-        if (!isSpace) {
-          bitmap.forEach((row, y) => {
-            [...row].forEach((bit, x) => {
-              if (bit === "1") {
-                const px = document.createElement("div");
-                px.className = "pixel";
-                px.style.width = `${pixelSize}px`;
-                px.style.height = `${pixelSize}px`;
-                px.style.left = `${currentX + x * (pixelSize + spacing)}px`;
-                px.style.top = `${startY + y * (pixelSize + spacing)}px`;
-                game.appendChild(px);
-                pixels.push(px);
-              }
-            });
-          });
+      const totalTextHeight = nameLines.length * (7 * (pixelSize + spacing) + pixelSize); // line spacing
+      const startY = (game.clientHeight - totalTextHeight) / 2;
+    
+      nameLines.forEach((line, lineIndex) => {
+        let totalWidth = 0;
+        for (let c of line) {
+          totalWidth += (c === " ") ? spaceWidth : charWidth;
+          totalWidth += charSpacing;
         }
-        currentX += width + charSpacing;
-      }
+        totalWidth -= charSpacing;
+    
+        let currentX = (game.clientWidth - totalWidth) / 2;
+        const lineY = startY + lineIndex * (7 * (pixelSize + spacing) + pixelSize);
+    
+        for (let c of line) {
+          const bitmap = letters[c] || letters[" "];
+          const isSpace = c === " ";
+          const width = isSpace ? spaceWidth : charWidth;
+    
+          if (!isSpace) {
+            bitmap.forEach((row, y) => {
+              [...row].forEach((bit, x) => {
+                if (bit === "1") {
+                  const px = document.createElement("div");
+                  px.className = "pixel";
+                  px.style.width = `${pixelSize}px`;
+                  px.style.height = `${pixelSize}px`;
+                  px.style.left = `${currentX + x * (pixelSize + spacing)}px`;
+                  px.style.top = `${lineY + y * (pixelSize + spacing)}px`;
+                  game.appendChild(px);
+                  pixels.push(px);
+                }
+              });
+            });
+          }
+    
+          currentX += width + charSpacing;
+        }
+      });
     }
   
     
@@ -135,10 +172,16 @@ const startX = (game.clientWidth - totalWidth) / 2;
       ballX += vx;
       ballY += vy;
   
-      if (ballX < 0 || ballX > game.clientWidth - 12) vx *= -1;
+      if (ballX < 0) {
+        ballX = 0;
+        vx *= -1;
+      } else if (ballX > game.clientWidth - ballSize) {
+        ballX = game.clientWidth - ballSize;
+        vx *= -1;
+      }
       if (ballY < 0) vy *= -1;
   
-      if (ballY > game.clientHeight - 12) {
+      if (ballY > game.clientHeight - ballSize) {
         ({ vx, vy, ballX, ballY } = launchBall());
       }
   
