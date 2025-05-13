@@ -247,10 +247,35 @@ body {
     .card-container {
       padding-top: 5vw;
     }
-    
+    .card {
+      width: 30vw;
+    }
+    .card h3 {
+      margin: 1% 0;
+      font-size: 2.5vw
+    }
+  
+    .card p {
+      font-size:2vw;
+      color: #555;
+      margin: 0% 0%;
+    }
   }
   @media (max-width: 600px) {
     .card-container {
       padding-top: 0vw;
+    }
+    .card {
+      width: 35vw;
+    }
+    .card h3 {
+      margin: 1% 0;
+      font-size: 3vw
+    }
+  
+    .card p {
+      font-size:2vw;
+      color: #555;
+      margin: 0% 0%;
     }
   }
