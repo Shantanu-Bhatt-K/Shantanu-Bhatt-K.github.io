@@ -5,8 +5,8 @@ html {
 body {
     background: #111;
     margin: 0;
-    font-family: monospace;
-    color: white;
+    font-family: 'Bebas Neue', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(0, 0, 0);
     width: 100vw;
     height: 100vh;
     perspective: 1px;
@@ -38,7 +38,7 @@ body {
     width: 100%;
     height: 100%;
     position: absolute;
-    background: url("Space\ Background.png") top center;
+    background: url("Img/Space\ Background.png") top center;
     background-size: cover;
     transform: translateZ(-1px) scale(4) translateY(-50px);
   }
@@ -152,12 +152,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 10vw;
   }
 
   .card {
     position: absolute;
-    width: 15vw;
-    height: 20vw;
+    width: 25vw;
+    aspect-ratio: 1/1.4;
     background: white;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
@@ -171,7 +172,11 @@ body {
     -webkit-touch-callout: none;                  /* ✅ disables callout menu on iOS */
     user-select: none;                            /* ✅ disables selection on long-press */
     -webkit-user-select: none;
-    touch-action: manipulation;               
+    touch-action: manipulation;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;            
   }
 
   .card.show {
@@ -180,21 +185,23 @@ body {
 
   .card img {
     width: 100%;
-    height: 60%;
+    height: 70%;
     object-fit: cover;
   }
 
   .card-content {
-    padding: 1% 1%;
+    padding: 4% 10%;
   }
 
   .card h3 {
-    margin: 0.5% 0;
+    margin: 1% 0;
+    font-size: 2.5vw
   }
 
   .card p {
-    font-size: 0.9rem;
+    font-size:1.5vw;
     color: #555;
+    margin: 0% 0%;
   }
 
   .card:nth-child(1).show {
@@ -237,16 +244,13 @@ body {
     z-index: 5;
   }
   @media (max-width: 900px) {
-    .card {
-      width: 20vw;
-    height: 35vw;        /* Full width on small screens */
-      max-width: none;
+    .card-container {
+      padding-top: 5vw;
     }
+    
   }
   @media (max-width: 600px) {
-    .card {
-      width: 35vw;
-    height: 50vw;        /* Full width on small screens */
-      max-width: none;
+    .card-container {
+      padding-top: 0vw;
     }
   }
