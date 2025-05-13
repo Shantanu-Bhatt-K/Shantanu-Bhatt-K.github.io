@@ -47,6 +47,7 @@ body {
   }
   .section2 {
     background-color: rgb(0, 0, 0);
+    padding-top: 0.1vw;
   }
   .text {
     top:30%;
@@ -151,13 +152,12 @@ body {
     perspective: 1000px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding-top: 10vw;
+
   }
 
   .card {
     position: absolute;
-    width: 25vw;
+    width: 20vw;
     aspect-ratio: 1/1.4;
     background: white;
     border-radius: 10px;
@@ -183,11 +183,27 @@ body {
     opacity: 1;
   }
 
-  .card img {
-    width: 100%;
-    height: 70%;
+  .card-image {
+    width:100%;
+    height:70%;
     object-fit: cover;
+    overflow: hidden;
+    position: relative;
+
   }
+  .card img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease;
+  }
+  .static-card {
+    opacity: 1;
+  }
+
 
   .card-content {
     padding: 4% 10%;
@@ -243,9 +259,14 @@ body {
     transform: rotate(25deg) translateX(10vw) translateY(-1vw) scale(1.05);
     z-index: 5;
   }
+  .card:hover .static-card {
+    opacity: 0;
+  }
+
   @media (max-width: 900px) {
     .card-container {
       padding-top: 5vw;
+      height:25vh
     }
     .card {
       width: 30vw;
@@ -263,7 +284,8 @@ body {
   }
   @media (max-width: 600px) {
     .card-container {
-      padding-top: 0vw;
+      padding-top: 10vw;
+      height:20vh
     }
     .card {
       width: 35vw;
