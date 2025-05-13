@@ -2,7 +2,10 @@ const loadingBar = document.getElementById("loadingBar");
 const loader = document.getElementById("loader");
 const game = document.getElementById("game");
 const loaderOverlay = document.getElementById("loader-overlay");
+const home = document.getElementById("HomePage");
+
 document.body.classList.add("loading");
+
 
 setTimeout(() => {
   loadingBar.style.width = "100%";
@@ -28,6 +31,24 @@ function AnimateCards()
     }, index * 300);
   });
 };
+
+const cards =  document.querySelectorAll(".card");
+cards.forEach((card, index) => {
+  card.addEventListener("click", () =>{
+    if(index == 0) {
+      //home.style.display = "none";
+    }
+    else if(index == 1) {
+      //window.location.href = 'drill.html';  
+    }
+    else if( index == 2) {
+     // window.location.href = 'drill.html';  
+    }
+    else if( index == 3) {
+      //window.location.href = 'drill.html';  
+    } 
+  })
+})
 function startGame() {
     const letters = {
       "A": ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
