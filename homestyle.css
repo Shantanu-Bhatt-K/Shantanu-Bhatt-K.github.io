@@ -262,7 +262,9 @@ body {
   .card:hover .static-card {
     opacity: 0;
   }
-
+  .headingtext {
+    color: white;font-size: 7rem; text-align: center; margin: 0% 0%;
+  }
   @media (max-width: 900px) {
     .card-container {
       padding-top: 5vw;
@@ -282,6 +284,12 @@ body {
       margin: 0% 0%;
     }
   }
+  @media (max-width: 666px) {
+    .headingtext{
+      font-size: 4rem;
+    }
+    
+  }
   @media (max-width: 600px) {
     .card-container {
       padding-top: 10vw;
@@ -300,4 +308,5 @@ body {
       color: #555;
       margin: 0% 0%;
     }
+    
   }
