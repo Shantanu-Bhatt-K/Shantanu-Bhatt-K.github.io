@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Card Fan Flip Animation</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 2000px;
+    }
+
+    .card-fan {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+        width: 20vw;
+        aspect-ratio: 1/1.4;
+        background: #fff;
+        position: absolute;
+        transform-origin: bottom center;
+        transform: translateX(-500px) scale(1); /* Start off-screen left */
+        transform-style: preserve-3d;
+        cursor: pointer;
+        opacity: 0;
+        transition: transform 0.6s ease, opacity 0.6s ease, z-index 0s;
+        border-radius: 10px; /* Add border-radius here */
+    }
+
+    .card .front, .card .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px; /* Ensures both front and back have rounded corners */
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .card .front {
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card .front img,
+    .card .front video {
+      width: 100%;
+      height: 60%;
+      object-fit: cover;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    .card .front video {
+      opacity: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1
+    }
+    .card .front img {
+        opacity: 1;
+        width: 100%;
+        object-fit: cover;
+        position: absolute; /* Position it absolutely inside the front container */
+        top: 0; /* Align the top of the image to the top of the container */
+        left: 0; /* Align the left of the image to the left of the container */
+        margin: 0; /* Ensure no margin is applied */
+        z-index: 3;
+    }
+    .card .front img {
+      opacity: 1;
+    }
+
+    .card .front h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+
+    .card .front p {
+      font-size: 14px;
+      padding: 0 10px;
+      text-align: center;
+    }
+
+    .card .back {
+      background: #222;
+      color: white;
+      transform: rotateY(180deg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Fan-in animation */
+    .card-fan.fan-open .card {
+      opacity: 1;
+    }
+
+    .card-fan.fan-open .card:nth-child(1) {
+      --angle: -15deg;
+      --offset: -160px;
+      z-index: 4;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.4s;
+    }
+
+    .card-fan.fan-open .card:nth-child(2) {
+      --angle: -5deg;
+      --offset: -50px;
+      z-index: 3;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.3s;
+    }
+
+    .card-fan.fan-open .card:nth-child(3) {
+      --angle: 5deg;
+      --offset: 50px;
+      z-index: 2;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.2s;
+    }
+
+    .card-fan.fan-open .card:nth-child(4) {
+      --angle: 15deg;
+      --offset: 160px;
+      z-index: 1;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.1s;
+    }
+
+    /* Hover: scale and slightly lift */
+    .card:hover {
+      transform: scale(1.05) translateY(-10px) rotate(var(--angle)) translateX(var(--offset)) !important;
+      z-index: 5 !important;
+      transition: transform 0.3s ease;
+    }
+
+    /* Hover state: show video and hide image */
+    .card:hover .front img {
+      opacity: 0;
+    }
+
+    .card:hover .front video {
+      opacity: 1;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    /* Clicked (flip) */
+    .card.active {
+      transform: scale(1.2) rotateY(180deg) !important;
+      z-index: 100 !important;  /* Ensure the flipped card stays on top */
+      transition: transform 0.8s ease !important;
+      transition-delay: 0s !important;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card-fan">
+  <div class="card">
+    <div class="front">
+        <div>
+            <img src="https://picsum.photos/200/150?random=1" alt="">
+            <video src="https://www.w3schools.com/html/movie.mp4" loop muted autoplay></video>
+        </div>
+        <div style="padding-top: 90%; height:100%">
+            <h3>Card One</h3>
+            <p>This is the description.</p>
+        </div>
+        
+    </div>
+    <div class="back">Back of Card One</div>
+  </div>
+  <div class="card">
+    <div class="front">
+      <div>
+            <img src="https://picsum.photos/200/150?random=2" alt="">
+            <video src="https://www.w3schools.com/html/movie.mp4" loop muted autoplay></video>
+        </div>
+      <div style="padding-top: 90%; height:100%">
+            <h3>Card One</h3>
+            <p>This is the description.</p>
+        </div>
+    </div>
+    <div class="back">Back of Card Two</div>
+  </div>
+  <div class="card">
+    <div class="front">
+      <div>
+            <img src="https://picsum.photos/200/150?random=3" alt="">
+            <video src="https://www.w3schools.com/html/movie.mp4" loop muted autoplay></video>
+        </div>
+      <div style="padding-top: 90%; height:100%">
+            <h3>Card One</h3>
+            <p>This is the description.</p>
+        </div>
+    </div>
+    <div class="back">Back of Card Three</div>
+  </div>
+  <div class="card">
+    <div class="front">
+      <div>
+            <img src="https://picsum.photos/200/150?random=4" alt="">
+            <video src="https://www.w3schools.com/html/movie.mp4" loop muted autoplay></video>
+        </div>
+      <div style="padding-top: 90%; height:100%">
+            <h3>Card One</h3>
+            <p>This is the description.</p>
+        </div>
+    </div>
+    <div class="back">Back of Card Four</div>
+  </div>
+</div>
+
+<script>
+  const cards = document.querySelectorAll('.card');
+  const fan = document.querySelector('.card-fan');
+
+  // Flip on click
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+
+  // Click outside to reset
+  document.body.addEventListener('click', (e) => {
+    if (!e.target.closest('.card')) {
+      cards.forEach(c => c.classList.remove('active'));
+    }
+  });
+
+  // Animate fan open on page load
+  window.addEventListener('load', () => {
+    fan.classList.add('fan-open');
+
+    // Remove fan-in delay after animation completes (600ms animation + 400ms max delay)
+    setTimeout(() => {
+      cards.forEach(card => {
+        card.style.transitionDelay = '0s';
+      });
+    }, 1000);
+  });
+</script>
+
+</body>
+</html>

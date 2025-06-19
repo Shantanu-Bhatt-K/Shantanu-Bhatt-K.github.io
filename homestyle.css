@@ -5,7 +5,7 @@ html {
 body {
     background: #111;
     margin: 0;
-    font-family: 'Bebas Neue', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Silkscreen', 'Arial Narrow', Arial, sans-serif;
     color: rgb(0, 0, 0);
     width: 100vw;
     height: 100vh;
@@ -19,14 +19,46 @@ body {
     overflow: hidden;
   }
   .top-bar {
-    width: 100%;
-    height: 50px; /* or any height you prefer */
-    background-color: black;
-    position:relative;
-    top: 0;
-    left: 0;
-    z-index: 10;
-  }
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  font-family: 'Silkscreen', 'Arial Narrow', Arial, sans-serif;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  box-sizing: border-box; /* Ensures padding doesn't add extra width */
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.top-bar-right img {
+  height: 30px;
+  width: auto;
+  border: none;
+}
+
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+}
+
+.top-bar-title {
+  font-size: 1.5rem;
+}
+
+
+
   .section1,.section2 {
     width: 100%;
     height:100vh;
@@ -47,7 +79,8 @@ body {
   }
   .section2 {
     background-color: rgb(0, 0, 0);
-    padding-top: 0.1vw;
+    padding-top: 1vw;
+    height:50vw;
   }
   .text {
     top:30%;
@@ -136,147 +169,192 @@ body {
     background: rgb(255, 255, 255);
     border-radius: 6px;
   }
-  #heightDisplay {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    font-size: 14px;
-    color: #0ff;
-    opacity: 0.6;
-  }
-  
-  .card-container {
-    position: relative;
-    width: 100%;
-    height: 50vh;
-    perspective: 1000px;
-    display: flex;
-    justify-content: center;
-
-  }
-
-  .card {
-    position: absolute;
-    width: 20vw;
-    aspect-ratio: 1/1.4;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    transition: transform 0.6s ease, z-index 0.3s;
-    transform-origin: bottom center;
-     transform: rotate(-25deg) translateX(-10vw);
-    overflow: hidden;
-    cursor: pointer;
-    opacity: 0;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* ✅ iOS Safari and other WebKit */
-    -webkit-touch-callout: none;                  /* ✅ disables callout menu on iOS */
-    user-select: none;                            /* ✅ disables selection on long-press */
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;            
-  }
-
-  .card.show {
-    opacity: 1;
-  }
-
-  .card-image {
-    width:100%;
-    height:70%;
-    object-fit: cover;
-    overflow: hidden;
-    position: relative;
-
-  }
-  .card img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: opacity 0.5s ease;
-  }
-  .card video {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: opacity 0.5s ease;
-  }
-  .static-card {
-    opacity: 1;
-    z-index: 10;
-  }
-  .gif-card {
-    z-index: 0;
-  }
-
-  .card-content {
-    padding: 4% 10%;
-  }
-
-  .card h3 {
-    margin: 1% 0;
-    font-size: 2.5vw
-  }
-
-  .card p {
-    font-size:1.5vw;
-    color: #555;
-    margin: 0% 0%;
-  }
-
-  .card:nth-child(1).show {
-    transform: rotate(-25deg) translateX(-10vw);
-    z-index: 4;
-  }
-
-  .card:nth-child(2).show {
-    transform: rotate(-8deg) translateX(-5vw);
-    z-index: 3;
-  }
-
-  .card:nth-child(3).show {
-    transform: rotate(8deg) translateX(5vw);
-    z-index: 2;
-  }
-
-  .card:nth-child(4).show {
-    transform: rotate(25deg) translateX(10vw);
-    z-index: 1;
-  }
-
-  .card:nth-child(1):hover {
-    transform: rotate(-25deg) translateX(-10vw) translateY(-1vw) scale(1.05);
-    z-index: 5;
-  }
-
-  .card:nth-child(2):hover {
-    transform: rotate(-8deg) translateX(-5vw) translateY(-1vw) scale(1.05);
-    z-index: 5;
-  }
-
-  .card:nth-child(3):hover {
-    transform: rotate(8deg) translateX(5vw) translateY(-1vw) scale(1.05);
-    z-index: 5;
-  }
-
-  .card:nth-child(4):hover {
-    transform: rotate(25deg) translateX(10vw) translateY(-1vw) scale(1.05);
-    z-index: 5;
-  }
-  .card:hover .static-card {
-    opacity: 0;
-  }
   .headingtext {
-    color: white;font-size: 7rem; text-align: center; margin: 0% 0%;
+    color: white;font-size: 3rem; text-align: center; margin: 0% 0%; font-weight: 400; margin-bottom: 20vw;
   }
+  .card-fan {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+        width: 20vw;
+        aspect-ratio: 1/1.4;
+        background: #fff;
+        position: absolute;
+        transform-origin: bottom center;
+        transform: translateX(-500px) scale(1); /* Start off-screen left */
+        transform-style: preserve-3d;
+        cursor: pointer;
+        opacity: 0;
+        transition: transform 0.6s ease, opacity 0.6s ease, z-index 0s;
+        border-radius: 10px; /* Add border-radius here */
+    }
+
+    .card .front, .card .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px; /* Ensures both front and back have rounded corners */
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .card .front {
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card .front img,
+    .card .front video {
+      width: 100%;
+      height: 60%;
+      object-fit: cover;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    .card .front video {
+      opacity: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1
+    }
+    .card .front img {
+        opacity: 1;
+        width: 100%;
+        object-fit: cover;
+        position: absolute; /* Position it absolutely inside the front container */
+        top: 0; /* Align the top of the image to the top of the container */
+        left: 0; /* Align the left of the image to the left of the container */
+        margin: 0; /* Ensure no margin is applied */
+        z-index: 3;
+    }
+    .card .front img {
+      opacity: 1;
+    }
+
+    .card .front h3 {
+      margin: 10px 0 5px;
+      font-size: 1.5vw;
+      text-align: center;
+    }
+
+    .card .front p {
+      font-size: 1.2vw;
+      padding: 0 10px;
+      text-align: center;
+    }
+
+    .card .back {
+      background: #222;
+      color: white;
+      transform: rotateY(180deg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.2vw;
+    }
+
+    /* Fan-in animation */
+    .card-fan.fan-open .card {
+      opacity: 1;
+    }
+
+    .card-fan.fan-open .card:nth-child(1) {
+      --angle: -15deg;
+      --offset: -21vw;
+      z-index: 4;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.4s;
+    }
+
+    .card-fan.fan-open .card:nth-child(2) {
+      --angle: -5deg;
+      --offset: -7vw;
+      z-index: 3;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.3s;
+    }
+
+    .card-fan.fan-open .card:nth-child(3) {
+      --angle: 5deg;
+      --offset: 7vw;
+      z-index: 2;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.2s;
+    }
+
+    .card-fan.fan-open .card:nth-child(4) {
+      --angle: 15deg;
+      --offset: 21vw;;
+      z-index: 1;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.1s;
+    }
+    .card-fan.fan-open .card:nth-child(5) {
+      --angle: -15deg;
+      --offset: -21vw;
+      z-index: 4;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.4s;
+    }
+
+    .card-fan.fan-open .card:nth-child(6) {
+      --angle: -5deg;
+      --offset: -7vw;
+      z-index: 3;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.3s;
+    }
+
+    .card-fan.fan-open .card:nth-child(7) {
+      --angle: 5deg;
+      --offset: 7vw;
+      z-index: 2;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.2s;
+    }
+
+    .card-fan.fan-open .card:nth-child(8) {
+      --angle: 15deg;
+      --offset: 21vw;;
+      z-index: 1;
+      transform: rotate(var(--angle)) translateX(var(--offset));
+      transition-delay: 0.1s;
+    }
+
+    /* Hover: scale and slightly lift */
+    .card:hover {
+      transform: scale(1.05) translateY(-10px) rotate(var(--angle)) translateX(var(--offset)) !important;
+      z-index: 5 !important;
+      transition: transform 0.3s ease;
+    }
+
+    /* Hover state: show video and hide image */
+    .card:hover .front img {
+      opacity: 0;
+    }
+
+    .card:hover .front video {
+      opacity: 1;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    /* Clicked (flip) */
+    .card.active {
+      transform: scale(1.2) rotateY(180deg) !important;
+      z-index: 100 !important;  /* Ensure the flipped card stays on top */
+      transition: transform 0.8s ease !important;
+      transition-delay: 0s !important;
+    }
   @media (max-width: 900px) {
     .card-container {
       padding-top: 5vw;
@@ -285,20 +363,28 @@ body {
     .card {
       width: 30vw;
     }
-    .card h3 {
+    .card .front h3 {
       margin: 1% 0;
-      font-size: 2.5vw
+      font-size: 2vw
     }
   
-    .card p {
+    .card .front p {
       font-size:2vw;
-      color: #555;
       margin: 0% 0%;
+    }
+    .card .back p{
+      font-size:2vw;
+    }
+    .headingtext{
+      margin-bottom: 30vw;
+    }
+    .section2 {
+      height: 80vw;
     }
   }
   @media (max-width: 666px) {
     .headingtext{
-      font-size: 4rem;
+      font-size: 3rem;
     }
     
   }
@@ -310,15 +396,21 @@ body {
     .card {
       width: 35vw;
     }
-    .card h3 {
+    .card .front h3 {
       margin: 1% 0;
       font-size: 3vw
     }
   
-    .card p {
+    .card .front p {
       font-size:2vw;
-      color: #555;
       margin: 0% 0%;
     }
-    
+    .card .back p{
+      font-size:2vw;
+    }
+  }
+  @media (max-width: 500px) {
+    .section2 {
+      height: 120vw;
+    }
   }

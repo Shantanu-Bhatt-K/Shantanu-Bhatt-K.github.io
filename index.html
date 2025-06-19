@@ -4,80 +4,149 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
   <title>Shantanu Bhatt</title>
   <link rel="stylesheet" href="homestyle.css" />
 </head>
 <body>
 
   <div class="top-bar">
-
+  <div class="top-bar-left">
+    <span class="top-bar-title">Home</span>
   </div>
+
+  <div class="top-bar-right">
+    <a href="https://shantanubhatt2001.itch.io">
+      <img src="Img/itchIcon.png" alt="Itch.io" />
+    </a>
+    <a href="https://github.com/Shantanu-Bhatt-K">
+      <img src="Img/githubIcon.png" alt="GitHub" style="height: 25px;" />
+    </a>
+    <a href="https://www.linkedin.com/in/shantanu-bhatt-838b53179/">
+      <img src="Img/linkedin.png" alt="LinkedIn" />
+    </a>
+  </div>
+</div>
   <div id="HomePage">
     <div class="section1">
       <div id="game"></div>
     </div>
     <div class = "section2">
       <h1 class="headingtext">Completed Games</h1>
-      <div class="card-container">
-        <div class="card">
-          <div class="card-image">
-            <video autoplay loop muted playsinline>
-              <source src="Img/drillvid.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <img src="Img/NotADrillBG.png" alt="NotADrillBG" class="static-card">
-            
-          </div>
-          
-          <div class="card-content">
-            <h3>This is not a drill</h3>
-            <p>Collect resources  to upgrade your drill and find shelter..... or build it.</p>
-          </div>
+      <div class="card-fan">
+  <div class="card">
+    <div class="front">
+        <div>
+            <img src="Img/AsteroidsBG.png" alt="">
+            <video src="Img/asteroidsVid.mp4" loop muted autoplay></video>
         </div>
-        <div class="card">
-          <div class="card-image">
-            <video autoplay loop muted playsinline>
-              <source src="Img/asteroidsVid.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <img src="Img/AsteroidsBG.png" alt="AsteroidsBG" class="static-card">
-            
-          </div>
-          <div class="card-content">
+        <div style="padding-top: 90%; height:100%; justify-items: center;">
             <h3>Asteroids</h3>
-            <p>Everyone's played asteroids right?....</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image">
-            <video autoplay loop muted playsinline>
-              <source src="Img/res8vid.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <img src="Img/Res8.png" alt="Res8" class="static-card">
+            <p>Monogame And C#</p>
             
-          </div>
-          <div class="card-content">
-            <h3>Res8</h3>
-            <p>Time powers anyone?</p>
-          </div>
         </div>
-        <div class="card">
-          <div class="card-image">
-            <video autoplay loop muted playsinline>
-              <source src="Img/infinirunVid.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <img src="Img/Infinirun.png" alt="Infinirun" class="static-card">
-            
-          </div>
-          <div class="card-content">
+        
+    </div>
+    <div class="back"><p>This Asteroids-style game was developed in MonoGame using C# for my Master’s coursework. It features a custom object-oriented 2D bounding box (OBB) collision system designed to detect collisions between asteroids and between asteroids and the player. The game also uses multithreaded processing to improve performance and maintain smooth gameplay.</p></div>
+  </div>
+  <div class="card">
+    <div class="front">
+      <div>
+            <img src="Img/Infinirun.png" alt="">
+            <video src="Img/infinirunVid.mp4" loop muted autoplay></video>
+        </div>
+      <div style="padding-top: 90%; height:100%">
             <h3>Infinirun</h3>
-            <p>Casual? how about hyper?</p>
-          </div>
+            <p>Unity3D and C#</p>
         </div>
-      </div>
+    </div>
+    <div class="back"><p>This hypercasual infinite runner was created in Unity with C# during a one-day passion project. It features procedural map generation and custom shaders to deliver a visually dynamic and endlessly replayable experience.</p></div>
+  </div>
+  <div class="card">
+    <div class="front">
+      <div>
+            <img src="Img/NotADrillBG.png" alt="">
+            <video src="Img/drillvid.mp4" loop muted autoplay></video>
+        </div>
+      <div style="padding-top: 90%; height:100%">
+            <h3>This is not a drill</h3>
+            <p>Unity2D and C#</p>
+        </div>
+    </div>
+    <div class="back"><p>This Is Not a Drill is a 2D survival game developed in Unity with C# for the 36-hour game jam Devs That Jam Challenge #8, where it won second place. Players must drill downward to escape a nuclear fallout, navigating a procedurally generated world built using Perlin noise.</p></div>
+  </div>
+  <div class="card">
+    <div class="front">
+      <div>
+            <img src="Img/Res8.png" alt="">
+            <video src="Img/res8vid.mp4" loop muted autoplay></video>
+        </div>
+      <div style="padding-top: 90%; height:100%">
+            <h3>Res8</h3>
+            <p>Unity2D and C#</p>
+        </div>
+    </div>
+    <div class="back"><p>Res8 is a game jam project created for the BYOG (Build Your Own Game) Jam. Built in Unity with C#, it features a unique time-reversal mechanic that allows players to manipulate the timeline of specific objects, creating strategic and mind-bending gameplay scenarios.</p></div>
+  </div>
+</div>
+    </div>
+    <div class = "section2">
+      <h1 class="headingtext">Technical Projects</h1>
+      <div class="card-fan">
+  <div class="card">
+    <div class="front">
+        <div>
+            <img src="Img/ECS2.png" alt="">
+            <video src="Img/BoidsVid.mp4" loop muted autoplay></video>
+        </div>
+        <div style="padding-top: 90%; height:100%; justify-items: center;">
+            <h3>Boids ECS</h3>
+            <p>Unity ECS and Jobs System</p>
+        </div>
+        
+    </div>
+    <div class="back"><p>A high-performance boid simulation built in Unity using the Entity Component System (ECS) and C# Job System, capable of simulating over 30,000 autonomous agents in real time. This project leverages data-oriented design and multithreading to achieve massive scale and smooth performance, demonstrating efficient use of parallel processing and memory layout optimization.</p></div>
+  </div>
+  <div class="card">
+    <div class="front">
+      <div>
+            <img src="Img/opengl.png" alt="">
+            <video src="Img/opengl.mp4" loop muted autoplay></video>
+        </div>
+      <div style="padding-top: 90%; height:100%">
+            <h3>Domain Dash</h3>
+            <p>OpenGL and C++</p>
+        </div>
+    </div>
+    <div class="back"><p>A top-down 3D game built in C++ with OpenGL for a university coursework project. It features physics-based motion, real-time collision handling, and a custom camera controller capable of smooth, unrestricted rotation in any direction—carefully designed to avoid gimbal lock. 3D models were created using a mix of procedural scripting and Blender, highlighting efficient graphics programming and flexible camera mechanics.</p></div>
+  </div>
+  <div class="card">
+    <div class="front">
+      <div>
+            <img src="Img/Rollercoaster Rampage.png" alt="">
+            <video src="Img/Rollercoaster Rampage.mp4" loop muted autoplay></video>
+        </div>
+      <div style="padding-top: 90%; height:100%">
+            <h3>Rollercoaster</h3>
+            <p>OpenGL and C++</p>
+        </div>
+    </div>
+    <div class="back"><p>A 3D simulation featuring a procedurally generated rollercoaster track using Catmull-Rom splines and motion powered by Verlet integration. Built in C++ with OpenGL, it also includes dynamic, procedurally generated sea waves and a mix of scripted and FBX-imported models to create an immersive environment.</p></div>
+  </div>
+  <div class="card">
+    <div class="front">
+      <div>
+            <img src="Img/Falling Sands.png" alt="">
+            <video src="Img/FallingSand.mp4" loop muted autoplay></video>
+        </div>
+      <div style="padding-top: 90%; height:100%">
+            <h3>Falling Sand</h3>
+            <p>Monogame and C#</p>
+        </div>
+    </div>
+    <div class="back"><p>A lightweight 2D pixel-based sand simulator prototype built in MonoGame using C#. Inspired by Conway’s Game of Life, it uses cellular automata logic to simulate falling particles. The current version supports interactive user input and showcases emergent behavior through simple physics-inspired rules.</p></div>
+  </div>
+</div>
     </div>
     <div id="loader-overlay">
       <div id="loader">

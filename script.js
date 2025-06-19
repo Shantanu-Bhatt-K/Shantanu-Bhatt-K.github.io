@@ -24,31 +24,34 @@ setTimeout(() => {
 
 function AnimateCards()
 {
-  const cards = document.querySelectorAll(".card");
-  cards.forEach((card, index) => {
-    setTimeout(() => {
-      card.classList.add("show");
-    }, index * 300);
+  const fans = document.querySelectorAll('.card-fan');
+  fans.forEach(fan => {
+    fan.classList.add('fan-open');
   });
+
+    // Remove fan-in delay after animation completes (600ms animation + 400ms max delay)
+    setTimeout(() => {
+      cards.forEach(card => {
+        card.style.transitionDelay = '0s';
+      });
+    }, 1000);
 };
 
 const cards =  document.querySelectorAll(".card");
-cards.forEach((card, index) => {
-  card.addEventListener("click", () =>{
-    if(index == 0) {
-      //home.style.display = "none";
+cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+
+  // Click outside to reset
+  document.body.addEventListener('click', (e) => {
+    if (!e.target.closest('.card')) {
+      cards.forEach(c => c.classList.remove('active'));
     }
-    else if(index == 1) {
-      //window.location.href = 'drill.html';  
-    }
-    else if( index == 2) {
-     // window.location.href = 'drill.html';  
-    }
-    else if( index == 3) {
-      //window.location.href = 'drill.html';  
-    } 
-  })
-})
+  });
 function startGame() {
     const letters = {
       "A": ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
