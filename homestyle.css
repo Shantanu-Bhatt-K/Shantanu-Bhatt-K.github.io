@@ -198,6 +198,7 @@ body {
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
       border-radius: 10px; /* Ensures both front and back have rounded corners */
       overflow: hidden;
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
@@ -209,13 +210,21 @@ body {
       flex-direction: column;
       align-items: center;
     }
+    .card .front {
+      transform: rotateY(0deg);
+    }
 
+    .card .back {
+      transform: rotateY(180deg);
+    }
     .card .front img,
     .card .front video {
       width: 100%;
       height: 60%;
       object-fit: cover;
       transition: opacity 0.4s ease-in-out;
+      backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
     }
 
     .card .front video {
