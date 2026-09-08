@@ -22,6 +22,8 @@ setTimeout(() => {
   }, 500);
 }, 2100);
 
+const cards = document.querySelectorAll(".card");
+
 function AnimateCards()
 {
   const fans = document.querySelectorAll('.card-fan');
@@ -37,7 +39,6 @@ function AnimateCards()
     }, 1000);
 };
 
-const cards =  document.querySelectorAll(".card");
 cards.forEach(card => {
     card.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -71,28 +72,21 @@ function startGame() {
       nameLines = ["SHANTANU BHATT"];
     }
     const isNarrow = game.clientWidth < 1000;
-const pixelSize = isNarrow
-  ? Math.min(8, Math.floor(game.clientWidth / 50))  // Smaller pixels for narrow layout
-  : Math.min(10, Math.floor(game.clientWidth / 100));
-    const spacing =0;
+    const pixelSize = isNarrow
+      ? Math.min(8, Math.floor(game.clientWidth / 50))   // smaller pixels for narrow layout
+      : Math.min(10, Math.floor(game.clientWidth / 100));
+    const spacing = 0;
     const ballSize = 12;
     const charWidth = 5 * (pixelSize + spacing);
     const charSpacing = 1 * (pixelSize + spacing);
     const spaceWidth = 3 * (pixelSize + spacing);
-    const textHeight = 5 * (pixelSize + spacing);
-    let totalWidth = 0;
-for (let c of name) {
-  if (c === " ") {
-    totalWidth += spaceWidth;
-  } else {
-    totalWidth += charWidth;
-  }
-  totalWidth += charSpacing;
-}
-totalWidth -= charSpacing; // remove final extra spacing
 
-const startX = (game.clientWidth - totalWidth) / 2;
-    const startY = (game.clientHeight - textHeight) / 2;
+    // One source of truth for text layout, used by both the ball spawn and
+    // generateTextPixels. Previously this block iterated `name`, which resolves
+    // to window.name (an empty string), so the width it produced was always 0.
+    const lineStride = 7 * (pixelSize + spacing) + pixelSize;
+    const totalTextHeight = nameLines.length * lineStride;
+    const textTop = (game.clientHeight - totalTextHeight) / 2;
   
     const pixels = [];
     let paddleX = game.clientWidth / 2 - 40;
@@ -137,7 +131,7 @@ const startX = (game.clientWidth - totalWidth) / 2;
         vx: speed * Math.cos(angle),
         vy: speed * Math.sin(angle),
         ballX: game.clientWidth / 2,
-        ballY: Math.min(game.clientHeight - 30, startY + textHeight + 40)
+        ballY: Math.min(game.clientHeight - 30, textTop + totalTextHeight + 40)
       };
     }
   
@@ -151,9 +145,6 @@ const startX = (game.clientWidth - totalWidth) / 2;
     }
   
     function generateTextPixels() {
-      const totalTextHeight = nameLines.length * (7 * (pixelSize + spacing) + pixelSize); // line spacing
-      const startY = (game.clientHeight - totalTextHeight) / 2;
-    
       nameLines.forEach((line, lineIndex) => {
         let totalWidth = 0;
         for (let c of line) {
@@ -163,7 +154,7 @@ const startX = (game.clientWidth - totalWidth) / 2;
         totalWidth -= charSpacing;
     
         let currentX = (game.clientWidth - totalWidth) / 2;
-        const lineY = startY + lineIndex * (7 * (pixelSize + spacing) + pixelSize);
+        const lineY = textTop + lineIndex * lineStride;
     
         for (let c of line) {
           const bitmap = letters[c] || letters[" "];
@@ -218,43 +209,54 @@ const startX = (game.clientWidth - totalWidth) / 2;
         bottom: ballY + ball.offsetHeight
       };
   
-      pixels.forEach((p, i) => {
+      // Walk backwards so removing an element cannot skip the next one.
+      // Collect every brick hit this frame and reflect once off their averaged
+      // normal, rather than reflecting repeatedly and scrambling the direction.
+      const ballCenterX = ballX + ball.offsetWidth / 2;
+      const ballCenterY = ballY + ball.offsetHeight / 2;
+      let normalX = 0;
+      let normalY = 0;
+      let hits = 0;
+
+      for (let i = pixels.length - 1; i >= 0; i--) {
+        const p = pixels[i];
         const pxX = parseFloat(p.style.left);
         const pxY = parseFloat(p.style.top);
         const pxW = p.offsetWidth;
         const pxH = p.offsetHeight;
+
         if (
-            ballX + ball.offsetWidth > pxX &&
-            ballX < pxX + pxW &&
-            ballY + ball.offsetHeight > pxY &&
-            ballY < pxY + pxH
+          ballX + ball.offsetWidth > pxX &&
+          ballX < pxX + pxW &&
+          ballY + ball.offsetHeight > pxY &&
+          ballY < pxY + pxH
         ) {
-            const pixelCenterX = pxX + pxW / 2;
-            const pixelCenterY = pxY + pxH / 2;
-            const ballCenterX = ballX + ball.offsetWidth / 2;
-            const ballCenterY = ballY + ball.offsetHeight / 2;
-  
-          let dx = ballCenterX - pixelCenterX;
-          let dy = ballCenterY - pixelCenterY;
-          const magnitude = Math.sqrt(dx * dx + dy * dy);
-          if (magnitude > 0) {
-            dx /= magnitude;
-            dy /= magnitude;
-            const speed = Math.sqrt(vx * vx + vy * vy);
-            vx = dx * speed;
-            vy = dy * speed;
-          }
-  
+          normalX += ballCenterX - (pxX + pxW / 2);
+          normalY += ballCenterY - (pxY + pxH / 2);
+          hits++;
+
           game.removeChild(p);
           pixels.splice(i, 1);
         }
-      });
+      }
+
+      if (hits > 0) {
+        const magnitude = Math.sqrt(normalX * normalX + normalY * normalY);
+        if (magnitude > 0) {
+          const speed = Math.sqrt(vx * vx + vy * vy);
+          vx = (normalX / magnitude) * speed;
+          vy = (normalY / magnitude) * speed;
+        }
+      }
   
+      // The paddle is positioned by CSS `bottom`, so style.top is never set.
+      // Derive its top directly instead of relying on parseFloat returning NaN.
+      const paddleTop = game.clientHeight - paddle.offsetHeight - 10;
       const paddleRect = {
         left: paddleX,
         right: paddleX + paddle.offsetWidth,
-        top: parseFloat(paddle.style.top || (game.clientHeight - paddle.offsetHeight - 10)) || (game.clientHeight - paddle.offsetHeight - 10),
-        bottom: parseFloat(paddle.style.top || (game.clientHeight - paddle.offsetHeight - 10)) + paddle.offsetHeight || (game.clientHeight - 10)
+        top: paddleTop,
+        bottom: paddleTop + paddle.offsetHeight
       };
     if (
       ballRect.bottom >= paddleRect.top &&

@@ -124,10 +124,6 @@ body {
     0 0 6px rgba(255, 221, 0, 0.4),
     0 0 10px rgba(255, 221, 0, 0.3);
   }
-  #scoreDisplay {
-    user-select: none;
-    pointer-events: none;
-  }
   #loadingBar {
     height: 100%;
     width: 0;
@@ -244,9 +240,6 @@ body {
         margin: 0; /* Ensure no margin is applied */
         z-index: 3;
     }
-    .card .front img {
-      opacity: 1;
-    }
 
     .card .front h3 {
       margin: 10px 0 5px;
@@ -272,72 +265,27 @@ body {
       font-size: 1.2vw;
     }
 
-    /* Fan-in animation */
+    /* Fan-in animation.
+       Each card carries its own --angle, --offset, --delay and --depth inline,
+       so a fan can hold any number of cards. Previously these were eight
+       hard-coded nth-child rules, which meant a fifth card stacked on top of
+       the first. */
     .card-fan.fan-open .card {
       opacity: 1;
+      z-index: var(--depth, 1);
+      transform: rotate(var(--angle, 0deg)) translateX(var(--offset, 0));
+      transition-delay: var(--delay, 0s);
     }
 
-    .card-fan.fan-open .card:nth-child(1) {
-      --angle: -15deg;
-      --offset: -21vw;
-      z-index: 4;
-      transform: rotate(var(--angle)) translateX(var(--offset));
-      transition-delay: 0.4s;
+    /* Five-card fans need narrower cards to stay on screen. */
+    .card-fan[data-count="5"] .card {
+      width: 17vw;
     }
-
-    .card-fan.fan-open .card:nth-child(2) {
-      --angle: -5deg;
-      --offset: -7vw;
-      z-index: 3;
-      transform: rotate(var(--angle)) translateX(var(--offset));
-      transition-delay: 0.3s;
+    @media (max-width: 900px) {
+      .card-fan[data-count="5"] .card { width: 26vw; }
     }
-
-    .card-fan.fan-open .card:nth-child(3) {
-      --angle: 5deg;
-      --offset: 7vw;
-      z-index: 2;
-      transform: rotate(var(--angle)) translateX(var(--offset));
-      transition-delay: 0.2s;
-    }
-
-    .card-fan.fan-open .card:nth-child(4) {
-      --angle: 15deg;
-      --offset: 21vw;;
-      z-index: 1;
-      transform: rotate(var(--angle)) translateX(var(--offset));
-      transition-delay: 0.1s;
-    }
-    .card-fan.fan-open .card:nth-child(5) {
-      --angle: -15deg;
-      --offset: -21vw;
-      z-index: 4;
-      transform: rotate(var(--angle)) translateX(var(--offset));
-      transition-delay: 0.4s;
-    }
-
-    .card-fan.fan-open .card:nth-child(6) {
-      --angle: -5deg;
-      --offset: -7vw;
-      z-index: 3;
-      transform: rotate(var(--angle)) translateX(var(--offset));
-      transition-delay: 0.3s;
-    }
-
-    .card-fan.fan-open .card:nth-child(7) {
-      --angle: 5deg;
-      --offset: 7vw;
-      z-index: 2;
-      transform: rotate(var(--angle)) translateX(var(--offset));
-      transition-delay: 0.2s;
-    }
-
-    .card-fan.fan-open .card:nth-child(8) {
-      --angle: 15deg;
-      --offset: 21vw;;
-      z-index: 1;
-      transform: rotate(var(--angle)) translateX(var(--offset));
-      transition-delay: 0.1s;
+    @media (max-width: 600px) {
+      .card-fan[data-count="5"] .card { width: 31vw; }
     }
 
     /* Hover: scale and slightly lift */
@@ -365,10 +313,6 @@ body {
       transition-delay: 0s !important;
     }
   @media (max-width: 900px) {
-    .card-container {
-      padding-top: 5vw;
-      height:25vh
-    }
     .card {
       width: 30vw;
     }
@@ -382,7 +326,7 @@ body {
       margin: 0% 0%;
     }
     .card .back p{
-      font-size:2vw;
+      font-size:2.6vw;
     }
     .headingtext{
       margin-bottom: 30vw;
@@ -398,10 +342,6 @@ body {
     
   }
   @media (max-width: 600px) {
-    .card-container {
-      padding-top: 10vw;
-      height:20vh
-    }
     .card {
       width: 35vw;
     }
@@ -415,7 +355,7 @@ body {
       margin: 0% 0%;
     }
     .card .back p{
-      font-size:2vw;
+      font-size:3.2vw;
     }
   }
   @media (max-width: 500px) {
